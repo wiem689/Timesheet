@@ -36,7 +36,7 @@ public class RestControlTimesheet {
 		return mission.getId();
 	}
 	
-	@PutMapping(value = "/affecterMissionADepartement/{idmission}/{iddept}") 
+	@PutMapping(value = "/affecterMssionADepartement/{idmission}/{iddept}") 
 	public void affecterMissionADepartement(@PathVariable("idmission") int missionId, @PathVariable("iddept") int depId) {
 		itimesheetservice.affecterMissionADepartement(missionId, depId);
 
