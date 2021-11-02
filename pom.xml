@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>tn.esprit.spring</groupId>
 	<artifactId>Timesheet-spring-boot-core-data-jpa-mvc-REST-1</artifactId>
-	<version>1.4</version>
+	<version>0.0.1-RELEASE</version>
 	<packaging>jar</packaging>
 	<name>Timesheet-spring-boot-core-data-jpa-mvc-REST-1</name>
 	<description>Timesheet-spring-boot-core-data-jpa-mvc-REST-1</description>
@@ -45,16 +45,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-    		<groupId>org.mockito</groupId>
-    		<artifactId>mockito-core</artifactId>
-    		<version>2.21.0</version>
-		</dependency>
-		<dependency>
-		    <groupId>log4j</groupId>
-		    <artifactId>log4j</artifactId>
-		    <version>1.2.17</version>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -68,15 +58,13 @@
 	
 	<distributionManagement>
     <snapshotRepository>
-      <id>deploymentRepo1</id>
+      <id>nexus-snapshots</id>
       <url>http://localhost:8081/repository/maven-snapshots/</url>
     </snapshotRepository>
     <repository>
-      <id>deploymentRepo2</id>
+      <id>nexus-releases</id>
       <url>http://localhost:8081/repository/maven-releases/</url>
     </repository>
   </distributionManagement>
-	
-	
 
 </project>
