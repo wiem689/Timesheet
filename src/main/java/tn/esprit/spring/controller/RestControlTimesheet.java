@@ -44,7 +44,7 @@ public class RestControlTimesheet {
 	
 
 	
-	@PostMapping("/ajoutertimesheet/idmission/idemp/dated/datef")
+	@PostMapping("/ajouterTimesheet/idmission/idemp/dated/datef")
 	@ResponseBody
 	public void ajouterTimesheet(@PathVariable("idmission") int missionId, @PathVariable("idemp") int employeId, @PathVariable("dated") Date dateDebut,@PathVariable("datef") Date dateFin) {
 		itimesheetservice.ajouterTimesheet(missionId, employeId, dateDebut, dateFin);
