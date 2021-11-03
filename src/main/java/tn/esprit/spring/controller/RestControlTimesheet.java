@@ -29,7 +29,7 @@ public class RestControlTimesheet {
 	ITimesheetService itimesheetservice;
 	
 
-	@PostMapping("/ajouTermission")
+	@PostMapping("/ajouermission")
 	@ResponseBody
 	public int ajouterMission(@RequestBody Mission mission) {
 		itimesheetservice.ajouterMission(mission);
