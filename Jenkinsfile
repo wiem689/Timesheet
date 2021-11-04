@@ -3,7 +3,7 @@ pipeline {
 	agent any 
 	
 	environment { 
-        registry = "Zaineb/Timesheet" 
+        registry = "wiem689/Timesheet" 
        
     }
 
