@@ -46,6 +46,12 @@ pipeline {
 
                   }
 				  
-				  
+				  stage("Docker"){
+					steps{
+						 bat "docker build -t wiemchalouati/timesheet ."
+						 bat "docker run --name timesheet -p 8082:8082 wiemchalouati/timesheet "
+						//bat "docker push wiemchalouati/timesheet"
+					}
+				  }
            }
 }
