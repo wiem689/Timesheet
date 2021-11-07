@@ -9,8 +9,8 @@ pipeline {
              stage( 'Checkout  GIT' ){
                        steps{
                           echo 'Pulling ... ';
-                              git branch:  'wiem' ,
-                              url :'https://github.com/wiem689/Timesheet'
+                              git branch:  'Wiem' ,
+                              url :'https://github.com/wiem689/Timesheet.git'
                               }
                     }
 
