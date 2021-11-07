@@ -6,13 +6,13 @@ pipeline {
         }
            stages{
 
-             stage( 'Checkout  GIT' ){
+             /*stage( 'Checkout  GIT' ){
                        steps{
                           echo 'Pulling ... ';
                               git branch:  'Wiem' ,
                               url :'https://github.com/wiem689/Timesheet.git'
                               }
-                    }
+                    }*/
 
             stage("Test,Build"){
                steps{
