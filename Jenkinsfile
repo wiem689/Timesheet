@@ -23,6 +23,7 @@ pipeline {
 					bat "mvn deploy"
 				}				
 			}
+			
 				
 			stage('Sonar Analyse'){
 				steps{
