@@ -3,31 +3,35 @@ pipeline {
 	agent any 
 	
 	environment { 
-        registry = "wiem689/Timesheet"
+        registry = "wiem689/timesheet"
 		registryCredential = 'dockerHub'
         dockerImage = '' 
        
     }
 
-	stages{
+	stages{ 
 			
-			stage('Clean Package'){
-					steps{
-						bat "mvn clean package"
-					}				
-				}
+			stage('Test & Build'){
+				steps{
+					bat "mvn clean package"
+
+				}				
+			}
+			
+			stage('Nexus Deploy'){
+				steps{
+					bat "mvn deploy"
+				}				
+			}
 				
 			stage('Sonar Analyse'){
 				steps{
                     bat "mvn sonar:sonar"
                   }
             }
-			stage('Nexus Deploy'){
-				steps{
-					bat "mvn deploy"
-				}				
-			}
-			stage('Building Image'){
+
+           
+			stage('Building Docker Image'){
 				steps{
 					script{
 						dockerImage = docker.build registry + ":$BUILD_NUMBER"
@@ -35,14 +39,22 @@ pipeline {
 				}				
 			}
 
-			stage('Deploy Image'){
+			stage('Pushing Docker Image'){
 				steps{
 					script{
 						docker.withRegistry( '', registryCredential ) 
                         {dockerImage.push()}
 					}
 				}
-			}					
+			}
+			
+			stage('Cleanup Workspace'){
+				steps{
+					cleanWs()
+				}				
+			}
+			
+		
 			
 		
 			
