@@ -58,44 +58,14 @@ pipeline {
 
                   }
            
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-      
 
         stage('Building our image') { 
 
             steps { 
-
-                script { 
-
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-
-                }
+                
+                bat "docker build -t wiemchalouati/imagedoc ."
+                bat "docker tag wiemchalouati/imagedoc wiemchalouati/imagedoc:$BUILD_NUMBER"
+          
 
             } 
 
@@ -104,14 +74,9 @@ pipeline {
         stage('Deploy our image') { 
 
             steps { 
-
-                script { 
-
-                    docker.withRegistry( '', registryCredential ) { 
-
-                        dockerImage.push() 
-
-                    }
+                
+                bat "docker push wiemchalouati/imagedoc:$BUILD_NUMBER"
+       
 
                 } 
 
