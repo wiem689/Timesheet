@@ -2,15 +2,18 @@ pipeline {
 
     environment { 
 
-        registry = "aymenca/image" 
+        registry = "wiemchalouati/imagedoc" 
 
-        registryCredential = 'aymemm' 
+        registryCredential = 'wiemid' 
 
         dockerImage = '' 
 
     }
 
     agent any 
+    tools{
+        jdk "JDK 8"
+        }
 
     stages { 
        
@@ -18,8 +21,8 @@ pipeline {
              stage( 'Checkout  GIT' ){
                        steps{
                           echo 'Pulling ... ';
-                              git branch:  'main' ,
-                              url :'https://github.com/aymenmelki/Timesheet'
+                               git branch:  'Wiem' ,
+                              url :'https://github.com/wiem689/timesheet.git'
                               }
                     }
 
