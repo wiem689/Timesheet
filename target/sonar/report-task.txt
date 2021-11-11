@@ -1,0 +1,6 @@
+projectKey=tn.esprit.spring:Timesheet
+serverUrl=http://localhost:9000
+serverVersion=7.4.0.18908
+dashboardUrl=http://localhost:9000/dashboard?id=tn.esprit.spring%3ATimesheet
+ceTaskId=AX0FNXnbdcHZlTcr7qdJ
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AX0FNXnbdcHZlTcr7qdJ
