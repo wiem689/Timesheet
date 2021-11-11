@@ -3,6 +3,7 @@ package tn.esprit.spring.services;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,10 +56,13 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		try{
 			
 		l.debug("lancement de la méthode affecterMissionADepartement");
-		Mission mission = missionRepository.findById(missionId).get();
-		Departement dep = deptRepoistory.findById(depId).get();
-		mission.setDepartement(dep);
-		missionRepository.save(mission);
+		Optional<Mission> mission = missionRepository.findById(missionId);
+		Optional<Departement> dep = deptRepoistory.findById(depId);
+		if (mission.isPresent() && dep.isPresent()) {
+			Mission m =mission.get();
+			m.setDepartement(dep.get());
+			missionRepository.save(m);
+		}
 		
 		l.info("Département est affectée à une mission avec succès");
 		}
@@ -96,33 +100,36 @@ public class TimesheetServiceImpl implements ITimesheetService {
 
 	
 	public void validerTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin, int validateurId) {
-		l.info("Validation de Timesheet");
+		l.info("In valider Timesheet");
 		
-		Employe validateur = employeRepository.findById(validateurId).get();
-		Mission mission = missionRepository.findById(missionId).get();
-		//verifier s'il est un chef de departement (interet des enum)
-		if(!validateur.getRole().equals(Role.CHEF_DEPARTEMENT)){
-			l.info("l'employe doit etre chef de departement pour valider une feuille de temps !");
-			return;
+		Optional<Employe> validateur = employeRepository.findById(validateurId);
+		Optional<Mission> mission = missionRepository.findById(missionId);
+		if (validateur.isPresent() && mission.isPresent() && !validateur.get().getRole().equals(Role.CHEF_DEPARTEMENT) ) {
+			//verifier s'il est un chef de departement (interet des enum)	
+			  l.warn("l'employe doit etre chef de departement pour valider une feuille de temps !");
+				return;
+			
 		}
 		//verifier s'il est le chef de departement de la mission en question
 		boolean chefDeLaMission = false;
-		for(Departement dep : validateur.getDepartements()){
-			if(dep.getId() == mission.getDepartement().getId()){
+		if (validateur.isPresent() && mission.isPresent()){
+		for(Departement dep : validateur.get().getDepartements()){
+			if(dep.getId() == mission.get().getDepartement().getId()){
 				chefDeLaMission = true;
 				l.info("l'employe est bien le chef de department de la mission en question");
 				break;
 			}
 		}
+		}
 		if(!chefDeLaMission){
-			l.info("l'employe doit etre chef de departement de la mission en question");
+			l.warn("l'employe doit etre chef de departement de la mission en question");
 			return;
 		}
-
+//
 		TimesheetPK timesheetPK = new TimesheetPK(missionId, employeId, dateDebut, dateFin);
 		Timesheet timesheet =timesheetRepository.findBytimesheetPK(timesheetPK);
 		timesheet.setValide(true);
-		
+
 		//Comment Lire une date de la base de données
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		l.info("dateDebut : " + dateFormat.format(timesheet.getTimesheetPK().getDateDebut()));
@@ -131,7 +138,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	
 	public List<Mission> findAllMissionByEmployeJPQL(int employeId) {
 		l.debug("Recherche de tous les missions selon l'employee");	
-	    l.info("Les missions affectés à l'employee d'id " + employeId + "sont:" );
+	    l.info("Les missions affectés à l'employee d'id " +  employeId  +    "sont:" );
 		return timesheetRepository.findAllMissionByEmployeJPQL(employeId);
 		
 	}
@@ -139,7 +146,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	
 	public List<Employe> getAllEmployeByMission(int missionId) {
 		l.debug("Recherche de tous les employees qui partagent la meme mission");
-		l.info("Les employees qui partagent la mission d'id " + missionId + "sont:" );
+		l.info("Les employees qui partagent la mission d'id " +  missionId  +   "sont:" );
 		return timesheetRepository.getAllEmployeByMission(missionId);
 	}
 
