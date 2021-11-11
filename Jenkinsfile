@@ -22,7 +22,7 @@ pipeline {
                        steps{
                           echo 'Pulling ... ';
                                git branch:  'Wiem' ,
-                              url :'https://github.com/wiem689/timesheet.git'
+                              url :'https://github.com/wiem689/Timesheet.git'
                               }
                     }
 
