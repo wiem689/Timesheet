@@ -29,7 +29,7 @@ public class RestControlEntreprise {
 	@Autowired
 	ITimesheetService itimesheetservice;
 	
-	
+	// Ajouter Entreprise : http://localhost:8081/SpringMVC/servlet/ajouterEntreprise
 
 	@PostMapping("/ajouterEntreprise")
 	@ResponseBody
@@ -38,12 +38,13 @@ public class RestControlEntreprise {
 		return ssiiConsulting.getId();
 	}
 	
-	
+	// http://localhost:8081/SpringMVC/servlet/affecterDepartementAEntreprise/1/1
     @PutMapping(value = "/affecterDepartementAEntreprise/{iddept}/{identreprise}") 
 	public void affecterDepartementAEntreprise(@PathVariable("iddept")int depId, @PathVariable("identreprise")int entrepriseId) {
 		ientrepriseservice.affecterDepartementAEntreprise(depId, entrepriseId);
 	}
-
+    
+    // http://localhost:8081/SpringMVC/servlet/deleteEntrepriseById/1
     @DeleteMapping("/deleteEntrepriseById/{identreprise}") 
 	@ResponseBody 
 	public void deleteEntrepriseById(@PathVariable("identreprise")int entrepriseId)
@@ -51,7 +52,7 @@ public class RestControlEntreprise {
 		ientrepriseservice.deleteEntrepriseById(entrepriseId);
 	}
     
-
+    // http://localhost:8081/SpringMVC/servlet/getEntrepriseById/1
     @GetMapping(value = "getEntrepriseById/{identreprise}")
     @ResponseBody
 	public Entreprise getEntrepriseById(@PathVariable("identreprise") int entrepriseId) {
@@ -59,7 +60,7 @@ public class RestControlEntreprise {
 		return ientrepriseservice.getEntrepriseById(entrepriseId);
 	}
     
-
+    // http://localhost:8081/SpringMVC/servlet/ajouterDepartement
 
  	@PostMapping("/ajouterDepartement")
  	@ResponseBody
@@ -67,14 +68,14 @@ public class RestControlEntreprise {
 		return ientrepriseservice.ajouterDepartement(dep);
 	}
 	
- 
+ 	 // http://localhost:8081/SpringMVC/servlet/getAllDepartementsNamesByEntreprise/1
     @GetMapping(value = "getAllDepartementsNamesByEntreprise/{identreprise}")
     @ResponseBody
 	public List<String> getAllDepartementsNamesByEntreprise(@PathVariable("identreprise") int entrepriseId) {
 		return ientrepriseservice.getAllDepartementsNamesByEntreprise(entrepriseId);
 	}
 
-
+    // URL : http://localhost:8081/SpringMVC/servlet/deleteDepartementById/3
     @DeleteMapping("/deleteDepartementById/{iddept}") 
 	@ResponseBody 
 	public void deleteDepartementById(@PathVariable("iddept") int depId) {

@@ -12,7 +12,7 @@ import tn.esprit.spring.services.IEntrepriseService;
 import tn.esprit.spring.services.ITimesheetService;
 
 @Controller
-public class IControllerEntrepriseImpl{
+public class ControllerEntrepriseImpl{
 
 	@Autowired
 	IEmployeService iemployeservice;
@@ -32,9 +32,9 @@ public class IControllerEntrepriseImpl{
 	{
 		ientrepriseservice.deleteEntrepriseById(entrepriseId);
 	}
-	public Entreprise getEntrepriseById() {
+	public Entreprise getEntrepriseById(int entrepriseId) {
 
-		return ientrepriseservice.getEntrepriseById(1);
+		return ientrepriseservice.getEntrepriseById(entrepriseId);
 	}
 	
 	public int ajouterDepartement(Departement dep) {
