@@ -64,7 +64,7 @@ pipeline {
             steps { 
                 bat "docker logout"
                 bat "docker build -t wiemchalouati/imagedoc ."
-                bat "docker tag wiemchalouati/imagedoc wiemchalouati/imagedoc:v$BUILD_NUMBER"
+                //bat "docker tag wiemchalouati/imagedoc wiemchalouati/imagedoc:v$BUILD_NUMBER"
                 
             } 
 
@@ -74,7 +74,7 @@ pipeline {
 
             steps { 
                 bat "docker login -u wiemchalouati -p wiem13019201"
-                bat "docker push wiemchalouati/imagedoc:v$BUILD_NUMBER"
+                bat "docker push wiemchalouati/imagedoc"
        
 
                 } 
@@ -83,8 +83,8 @@ pipeline {
        stage('Cleaning up') { 
 
             steps { 
-
-                bat "docker rmi $registry:v$BUILD_NUMBER" 
+                bat "docker rmi $registry"
+               // bat "docker rmi $registry:v$BUILD_NUMBER" 
 
             }
         } 
