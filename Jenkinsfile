@@ -64,7 +64,7 @@ pipeline {
             steps { 
                 
                 bat "docker build -t wiemchalouati/imagedoc ."
-                bat "docker tag wiemchalouati/imagedoc wiemchalouati/imagedoc:$BUILD_NUMBER"
+                bat "docker tag wiemchalouati/imagedoc wiemchalouati/imagedoc:v$BUILD_NUMBER"
           
 
             } 
@@ -75,7 +75,7 @@ pipeline {
 
             steps { 
                 
-                bat "docker push wiemchalouati/imagedoc:$BUILD_NUMBER"
+                bat "docker push wiemchalouati/imagedoc:v$BUILD_NUMBER"
        
 
                 } 
@@ -85,7 +85,7 @@ pipeline {
 
             steps { 
 
-                bat "docker rmi $registry:$BUILD_NUMBER" 
+                bat "docker rmi $registry:v$BUILD_NUMBER" 
 
             }
         } 
