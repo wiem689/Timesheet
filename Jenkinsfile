@@ -58,14 +58,45 @@ pipeline {
 
                   }
            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+      
 
         stage('Building our image') { 
 
             steps { 
-                bat "docker logout"
-                bat "docker build -t wiemchalouati/imagedoc ."
-                //bat "docker tag wiemchalouati/imagedoc wiemchalouati/imagedoc:v$BUILD_NUMBER"
-                
+
+                script { 
+
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+
+                }
+
             } 
 
         }
@@ -73,18 +104,25 @@ pipeline {
         stage('Deploy our image') { 
 
             steps { 
-                bat "docker login -u wiemchalouati -p wiem13019201"
-                bat "docker push wiemchalouati/imagedoc"
-       
+
+                script { 
+
+                    docker.withRegistry( '', registryCredential ) { 
+
+                        dockerImage.push() 
+
+                    }
 
                 } 
 
             }
+
+        } 
        stage('Cleaning up') { 
 
             steps { 
-                bat "docker rmi $registry"
-               // bat "docker rmi $registry:v$BUILD_NUMBER" 
+
+                bat "docker rmi $registry:$BUILD_NUMBER" 
 
             }
         } 
