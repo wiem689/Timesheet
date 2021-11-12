@@ -62,11 +62,10 @@ pipeline {
         stage('Building our image') { 
 
             steps { 
-                bat "docker login"
+                bat "docker logout"
                 bat "docker build -t wiemchalouati/imagedoc ."
                 bat "docker tag wiemchalouati/imagedoc wiemchalouati/imagedoc:v$BUILD_NUMBER"
-          
-
+                
             } 
 
         }
@@ -74,7 +73,7 @@ pipeline {
         stage('Deploy our image') { 
 
             steps { 
-                
+                bat "docker login -u wiemchalouati -p wiem13019201"
                 bat "docker push wiemchalouati/imagedoc:v$BUILD_NUMBER"
        
 
